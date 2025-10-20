@@ -15,7 +15,7 @@ function App() {
 		setUsers(responseData.data)
     }
 
-	const createUser = async (data) => {
+	const createUser = async (data, e) => {
 		const response = await fetch("http://localhost:3000/users", {
 			method: "POST",
 			headers: {
@@ -26,13 +26,20 @@ function App() {
 
 		if(response.ok){
 			getUsers();
+			e.target.reset();
 		}
 	}
 
     return (
 		<>
-			<Form createUser={createUser} />
-			<Users users={users} />
+			<div className="grid grid-cols-1 md:grid-cols-2">
+				<div className="bg-gray-900 text-white p-5">
+					<Form createUser={createUser} />
+				</div>
+				<div className="p-4">
+					<Users users={users} />
+				</div>
+			</div>
 		</>
     )
 }
